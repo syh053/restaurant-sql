@@ -4,13 +4,26 @@ const app = express()
 const port = 3000
 
 
+//設定樣板引擎
+const engine = require("express-handlebars").engine
+app.engine(".hbs", engine({ extname: '.hbs' }))
+app.set("view engine", ".hbs")
+app.set("views", "./views")
+
+
+
+//對所有的 request 進行前置處理
+app.use(express.static("public"))
+
+
 //建立路由路徑
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
+const datas = require("./public/json/restaurant.json").results
 app.get('/restaurants', (req, res) => {
-    res.send('Here is restaurants list')
+    res.render("index", { datas })
 })
 
 

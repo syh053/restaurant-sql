@@ -17,6 +17,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       category: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       image: {
