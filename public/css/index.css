@@ -40,7 +40,7 @@ header {
     font-size: 0.8rem;
 }
 
-.btn-major {
+.btn-major, .creat-button {
     background-color: #9b4b4b;
     color: white;
 }
@@ -98,4 +98,13 @@ header {
         height: auto;
     }
 
+}
+
+.creat-list {
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    top: -100px;
+    font-size: 3em;
+    color: #dddddd;
 }

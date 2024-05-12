@@ -51,7 +51,7 @@ app.get('/restaurants', (req, res) => {
 
 
 app.get('/restaurants/new', (req, res) => {
-    res.send('creat new restaurant')
+    res.render('new')
 })
 
 

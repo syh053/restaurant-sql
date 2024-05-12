@@ -11,6 +11,7 @@ module.exports = {
       return {
         id: data.id,
         name: data.name,
+        name_en: data.name_en,
         category: data.category,
         image: data.image,
         location: data.location,
