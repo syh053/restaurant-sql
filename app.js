@@ -4,6 +4,13 @@ const app = express()
 const port = 3000
 
 
+const db = require("./models")
+const restaurant = require('./models/restaurant')
+const { where } = require('sequelize')
+const { Op } = require('sequelize')
+const Restaurant = db.Restaurant
+
+
 //設定樣板引擎
 const engine = require("express-handlebars").engine
 app.engine(".hbs", engine({ extname: '.hbs' }))
@@ -21,9 +28,25 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-const datas = require("./public/json/restaurant.json").results
+
 app.get('/restaurants', (req, res) => {
-    res.render("index", { datas })
+    const keyword = req.query.keyword?.trim()
+    // 搜尋 name, name_en, category, phone, description 是否符合關鍵字
+    if ( keyword ) {
+        Restaurant.findAll({
+            where: { name: { [Op.like]: `%${keyword}%` }},
+            raw: true
+        })
+            .then( restaurants => res.render("restaurants", { restaurants, keyword }))
+            .catch( err => res.status(422).json(err))
+
+    } else {
+        Restaurant.findAll({
+            raw: true
+        })
+            .then( restaurants => res.render("restaurants", { restaurants }))
+            .catch( err => res.status(422).json(err))
+    }   
 })
 
 
