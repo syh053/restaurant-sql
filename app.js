@@ -21,6 +21,7 @@ app.set("views", "./views")
 
 //對所有的 request 進行前置處理
 app.use(express.static("public"))
+app.use(express.urlencoded({ extended: true }))
 
 
 //建立路由路徑
@@ -68,6 +69,8 @@ app.get('/restaurants/:id/edit', (req, res) => {
 
 
 app.post("/restaurants", (req, res) => {
+    const body = req.body.name
+    console.log( body )
     res.send("add restaurants")
 } )
 

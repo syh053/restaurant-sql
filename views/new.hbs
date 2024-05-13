@@ -1,36 +1,103 @@
 <h4 class="creat-list">建立餐廳</h4>
 
-<div class="container border shadow p-3 mb-5 bg-body-tertiary rounded my-5">
+<div class="container border shadow p-3 mb-5 bg-body-tertiary rounded my-4">
     <div class="row row-cols-8">
-        <form class="new-form my-5">
+        <form class="new-form my-5" action="/restaurants/" method="post">
+
             <div class="row row-cols-2 mb-3">
-                <div class="col-3 text-center"> 
+                <div class="col-3 text-center">
                     <label for="name" class="form-label pt-2">名稱</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control" id="name">
-                </div>           
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <div></div>
+                <div></div>
             </div>
+
             <div class="row row-cols-2 mb-3">
                 <div class="col-3 text-center">
                     <label for="en-name" class="form-label pt-2">英文名稱 (選填)</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control" id="en-name">
-                </div>
-            </div>
-            <div class="row row-cols-2 mb-3">
-                <div class="col-3 text-center">
-                    <label for="en-name" class="form-label pt-2">餐廳類別</label>
-                </div>
-                <div class="col-8">
-                    <input type="text" class="form-control" id="en-name">
+                    <input type="text" class="form-control" id="en-name" name="naen-nameme">
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="category" class="form-label pt-2">餐廳類別</label>
+                </div>
+                <div class="col-8">
+                    <input list="categorys" class="form-control" id="category" name="category">
+                    <datalist id="categorys">
+                        <option>中東料理</option>
+                        <option>亞洲料理</option>
+                    </datalist>
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="photo-source" class="form-label pt-2">照片連結 (選填)</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="photo-source" name="photo-source">
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="address" class="form-label pt-2">地址 (選填)</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="address" name="address">
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="phone-number" class="form-label pt-2">電話 (選填)</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="phone-number" name="phone-number">
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="google-address" class="form-label pt-2">Google 地址 (選填)</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="google-address" name="google-address">
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="rating" class="form-label pt-2">評價 (選填)</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="rating" name="rating">
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="description" class="form-label pt-2">描述 (選填)</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="description" name="description">
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3 mt-4">
+                <div class="col-3 text-center"></div>
+                <div class="col-8 d-flex justify-content-end">
+                    <button type="submit" class="submit-button btn btn-primary">Submit</button>
+                </div>
+            </div>
+
         </form>
     </div>
 </div>
-
-
