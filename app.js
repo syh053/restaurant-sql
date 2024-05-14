@@ -58,7 +58,12 @@ app.get('/restaurants/new', (req, res) => {
 
 app.get('/restaurants/:id', (req, res) => {
     const id = req.params.id
-    res.send(`Here is restaurant page : ${ id }`)
+    Restaurant.findOne({ 
+        where: { id: id },
+        raw: true
+     })
+        .then( restaurant => res.render("detail", { restaurant }) )
+        .catch(err => res.status(422).json(err))
 })
 
 
