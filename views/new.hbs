@@ -9,7 +9,7 @@
                     <label for="name" class="form-label pt-2">名稱</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control" id="name" name="name">
+                    <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div></div>
                 <div></div>
@@ -26,13 +26,17 @@
 
             <div class="row row-cols-2 mb-3">
                 <div class="col-3 text-center">
-                    <label for="category" class="form-label pt-2">餐廳類別</label>
+                    <label for="category" class="form-label">餐廳類型</label>
                 </div>
                 <div class="col-8">
-                    <input list="categorys" class="form-control" id="category" name="category">
+                    <input class="form-control" list="categorys" id="category" name="category" placeholder="選擇餐廳類型">
                     <datalist id="categorys">
-                        <option>中東料理</option>
-                        <option>亞洲料理</option>
+                        <option value="中東料理">
+                        <option value="日本料理">
+                        <option value="義式餐廳">
+                        <option value="美式">
+                        <option value="酒吧">
+                        <option value="咖啡"></option>
                     </datalist>
                 </div>
             </div>

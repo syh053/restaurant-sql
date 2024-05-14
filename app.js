@@ -69,8 +69,9 @@ app.get('/restaurants/:id/edit', (req, res) => {
 
 
 app.post("/restaurants", (req, res) => {
-    const body = req.body.name
-    console.log( body )
+    const body = req.body
+    console.log( body.name )
+    console.log( body.category )
     res.send("add restaurants")
 } )
 
