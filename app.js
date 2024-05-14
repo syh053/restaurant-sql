@@ -72,7 +72,20 @@ app.post("/restaurants", (req, res) => {
     const body = req.body
     console.log( body.name )
     console.log( body.category )
-    res.send("add restaurants")
+    Restaurant.create( {
+        name: body.name,
+        name_en: body.en_name,
+        category: body.category,
+        image: body.photo_source,
+        location: body.address,
+        phone: body.phone,
+        google_map: body.google_address,
+        rating: body.rating,
+        description: body.description
+    } )
+        .then( () => res.redirect("/restaurants") )
+        .catch( err => res.status(422).json(err))
+
 } )
 
 

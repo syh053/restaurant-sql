@@ -17,10 +17,10 @@
 
             <div class="row row-cols-2 mb-3">
                 <div class="col-3 text-center">
-                    <label for="en-name" class="form-label pt-2">英文名稱 (選填)</label>
+                    <label for="en_name" class="form-label pt-2">英文名稱 (選填)</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control" id="en-name" name="naen-nameme">
+                    <input type="text" class="form-control" id="en_name" name="en_name">
                 </div>
             </div>
 
@@ -31,22 +31,23 @@
                 <div class="col-8">
                     <input class="form-control" list="categorys" id="category" name="category" placeholder="選擇餐廳類型">
                     <datalist id="categorys">
-                        <option value="中東料理">
-                        <option value="日本料理">
-                        <option value="義式餐廳">
-                        <option value="美式">
-                        <option value="酒吧">
-                        <option value="咖啡"></option>
+                        <option>中東料理</option>
+                        <option>日本料理</option>
+                        <option>義式餐廳</option>
+                        <option>美式</option>
+                        <option>酒吧</option>
+                        <option>咖啡</option>
+                        <option>其他</option>
                     </datalist>
                 </div>
             </div>
 
             <div class="row row-cols-2 mb-3">
                 <div class="col-3 text-center">
-                    <label for="photo-source" class="form-label pt-2">照片連結 (選填)</label>
+                    <label for="photo_source" class="form-label pt-2">照片連結 (選填)</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control" id="photo-source" name="photo-source">
+                    <input type="text" class="form-control" id="photo_source" name="photo_source">
                 </div>
             </div>
 
@@ -61,19 +62,19 @@
 
             <div class="row row-cols-2 mb-3">
                 <div class="col-3 text-center">
-                    <label for="phone-number" class="form-label pt-2">電話 (選填)</label>
+                    <label for="phone" class="form-label pt-2">電話 (選填)</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control" id="phone-number" name="phone-number">
+                    <input type="text" class="form-control" id="phone" name="phone">
                 </div>
             </div>
 
             <div class="row row-cols-2 mb-3">
                 <div class="col-3 text-center">
-                    <label for="google-address" class="form-label pt-2">Google 地址 (選填)</label>
+                    <label for="google_address" class="form-label pt-2">Google 地址 (選填)</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control" id="google-address" name="google-address">
+                    <input type="text" class="form-control" id="google_address" name="google_address">
                 </div>
             </div>
 
@@ -82,7 +83,7 @@
                     <label for="rating" class="form-label pt-2">評價 (選填)</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control" id="rating" name="rating">
+                    <input type="number" step="0.1" max="5" min="0" value="3" class="form-control" id="rating" name="rating">
                 </div>
             </div>
 
