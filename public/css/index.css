@@ -108,3 +108,8 @@ header {
     font-size: 3em;
     color: #dddddd;
 }
+
+.edit-btn {
+    position: relative;
+    left: -235px;
+}

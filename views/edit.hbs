@@ -1,0 +1,110 @@
+<h4 class="creat-list">建立餐廳</h4>
+
+<div class="container border shadow p-3 mb-5 bg-body-tertiary rounded my-4">
+    <div class="row row-cols-8">
+        <form class="new-form my-5" action="/restaurants/{{restaurant.id}}?_method=PUT" method="POST">
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="name" class="form-label pt-2">名稱</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="name" name="name" value="{{restaurant.name}}" required>
+                </div>
+                <div></div>
+                <div></div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="en_name" class="form-label pt-2">英文名稱 (選填)</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="en_name" name="en_name" value="{{restaurant.name_en}}">
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="category" class="form-label">餐廳類型</label>
+                </div>
+                <div class="col-8">
+                    <input class="form-control" list="categorys" id="category" name="category" value="{{restaurant.category}}" placeholder="選擇餐廳類型">
+                    <datalist id="categorys">
+                        <option>中東料理</option>
+                        <option>日本料理</option>
+                        <option>義式餐廳</option>
+                        <option>美式</option>
+                        <option>酒吧</option>
+                        <option>咖啡</option>
+                        <option>其他</option>
+                    </datalist>
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="photo_source" class="form-label pt-2">照片連結 (選填)</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="photo_source" name="photo_source" value="{{restaurant.image}}">
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="address" class="form-label pt-2">地址 (選填)</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="address" name="address" value="{{restaurant.location}}">
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="phone" class="form-label pt-2">電話 (選填)</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="phone" name="phone" value="{{restaurant.phone}}">
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="google_address" class="form-label pt-2">Google 地址 (選填)</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="google_address" name="google_address" value="{{restaurant.google_map}}">
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="rating" class="form-label pt-2">評價 (選填)</label>
+                </div>
+                <div class="col-8">
+                    <input type="number" step="0.1" max="5" min="0" class="form-control" id="rating"
+                        name="rating" value="{{restaurant.rating}}">
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3">
+                <div class="col-3 text-center">
+                    <label for="description" class="form-label pt-2">描述 (選填)</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="description" name="description" value="{{restaurant.description}}">
+                </div>
+            </div>
+
+            <div class="row row-cols-2 mb-3 mt-4">
+                <div class="col-3 text-center"></div>
+                <div class="col-8 d-flex justify-content-end">
+                    <button type="submit" class="submit-button btn btn-primary me-3">Save</button>
+                    <a class="text-secondary btn btn-primary text-white pt-2" href="/restaurants/{{restaurant.id}}">Detail</a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

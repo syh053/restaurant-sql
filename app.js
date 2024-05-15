@@ -11,6 +11,10 @@ const { Op } = require('sequelize')
 const Restaurant = db.Restaurant
 
 
+//載入 method-override 套件
+const methodOverride = require('method-override')
+
+
 //設定樣板引擎
 const engine = require("express-handlebars").engine
 app.engine(".hbs", engine({ extname: '.hbs' }))
@@ -22,6 +26,7 @@ app.set("views", "./views")
 //對所有的 request 進行前置處理
 app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 
 //建立路由路徑
@@ -69,7 +74,12 @@ app.get('/restaurants/:id', (req, res) => {
 
 app.get('/restaurants/:id/edit', (req, res) => {
     const id = req.params.id
-    res.send(`edit restaurant page : ${id}`)
+    Restaurant.findOne({
+        where: { id: id },
+        raw: true
+    })
+        .then(restaurant => res.render("edit", { restaurant }))
+        .catch(err => res.status(422).json(err))
 })
 
 
@@ -95,7 +105,25 @@ app.post("/restaurants", (req, res) => {
 
 
 app.put("/restaurants/:id", (req, res) => {
-    res.send('modify restaurants')
+    const id = req.params.id
+    const body = req.body
+    Restaurant.update({
+
+        name: body.name,
+        name_en: body.en_name,
+        category: body.category,
+        image: body.photo_source,
+        location: body.address,
+        phone: body.phone,
+        google_map: body.google_address,
+        rating: body.rating,
+        description: body.description
+    },
+
+        { where: { id: id } },
+    )
+        .then( () => res.redirect(`/restaurants/${id}`) )
+        .catch(err => res.status(422).json(err))
 })
 
 
