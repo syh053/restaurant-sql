@@ -128,7 +128,12 @@ app.put("/restaurants/:id", (req, res) => {
 
 
 app.delete("/restaurants/:id", (req, res) => {
-    res.send('delete restaurants')
+    const id = req.params.id
+    Restaurant.destroy({
+        where: { id : id }
+    })
+        .then( () => res.redirect("/restaurants") )
+        .catch(err => res.status(422).json(err))
 })
 
 
