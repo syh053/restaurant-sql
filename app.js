@@ -40,7 +40,15 @@ app.get('/restaurants', (req, res) => {
     // 搜尋 name, name_en, category, phone, description 是否符合關鍵字
     if ( keyword ) {
         Restaurant.findAll({
-            where: { name: { [Op.like]: `%${keyword}%` }},
+            where: { 
+                [Op.or]: [
+                    { name: { [Op.like]: `%${keyword}%` }},
+                    { name_en: { [Op.like]: `%${keyword}%` }},
+                    { category: { [Op.like]: `%${keyword}%` } },
+                    { phone: { [Op.like]: `%${keyword}%` } },
+                    { description: { [Op.like]: `%${keyword}%` } }
+                ]
+        },
             raw: true
         })
             .then( restaurants => res.render("restaurants", { restaurants, keyword }))
