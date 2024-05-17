@@ -4,9 +4,9 @@ const app = express()
 const port = 3000
 
 
-const db = require("./models")
-const restaurant = require('./models/restaurant')
-const { where } = require('sequelize')
+const db = require("./db/models")
+// const restaurant = require('./models/restaurant')
+// const { where } = require('sequelize')
 const { Op } = require('sequelize')
 const Restaurant = db.Restaurant
 

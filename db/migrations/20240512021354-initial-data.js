@@ -1,6 +1,6 @@
 'use strict';
 
-const datas = require("../public/json/restaurant.json").results
+const datas = require("./db/json/restaurant.json").results
 
 
 /** @type {import('sequelize-cli').Migration} */
