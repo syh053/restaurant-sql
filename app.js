@@ -15,6 +15,10 @@ const Restaurant = db.Restaurant
 const methodOverride = require('method-override')
 
 
+//載入 express-correlation-id 套件
+const correlator = require('express-correlation-id')
+
+
 //設定樣板引擎
 const engine = require("express-handlebars").engine
 app.engine(".hbs", engine({ extname: '.hbs' }))
@@ -27,6 +31,7 @@ app.set("views", "./views")
 app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+app.use(correlator())
 
 
 //建立路由路徑
@@ -54,7 +59,10 @@ app.get('/restaurants', (req, res) => {
     } : { raw: true }
     Restaurant.findAll(option)
         .then(restaurants => res.render("restaurants", { restaurants, keyword }))
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(`ID for this request is: ${ req.correlationId() }, message: ${ err.message }`)
+            res.status(500).json({ message: 'Unhandled error', requestId: 'randomId_1xxxxx' })
+        })
         
 })
 
@@ -71,7 +79,10 @@ app.get('/restaurants/:id', (req, res) => {
         raw: true
     })
         .then(restaurant => res.render("detail", { restaurant }))
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(`ID for this request is: ${req.correlationId()}, message: ${err.message}`)
+            res.status(500).json({ message: 'Unhandled error', requestId: 'randomId_1xxxxx' })
+        })
 })
 
 
@@ -82,7 +93,10 @@ app.get('/restaurants/:id/edit', (req, res) => {
         raw: true
     })
         .then(restaurant => res.render("edit", { restaurant }))
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(`ID for this request is: ${req.correlationId()}, message: ${err.message}`)
+            res.status(500).json({ message: 'Unhandled error', requestId: 'randomId_1xxxxx' })
+        })
 })
 
 
@@ -102,7 +116,10 @@ app.post("/restaurants", (req, res) => {
         description: body.description
     })
         .then(() => res.redirect("/restaurants"))
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(`ID for this request is: ${req.correlationId()}, message: ${err.message}`)
+            res.status(500).json({ message: 'Unhandled error', requestId: 'randomId_1xxxxx' })
+        })
 
 })
 
@@ -126,7 +143,10 @@ app.put("/restaurants/:id", (req, res) => {
         { where: { id: id } },
     )
         .then(() => res.redirect(`/restaurants/${id}`))
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(`ID for this request is: ${req.correlationId()}, message: ${err.message}`)
+            res.status(500).json({ message: 'Unhandled error', requestId: 'randomId_1xxxxx' })
+        })
 })
 
 
@@ -136,7 +156,10 @@ app.delete("/restaurants/:id", (req, res) => {
         where: { id: id }
     })
         .then(() => res.redirect("/restaurants"))
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(`ID for this request is: ${req.correlationId()}, message: ${err.message}`)
+            res.status(500).json({ message: 'Unhandled error', requestId: 'randomId_1xxxxx' })
+        })
 })
 
 
