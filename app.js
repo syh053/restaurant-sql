@@ -3,6 +3,16 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+//載入 express-session
+const session = require("express-session")
+
+//載入 connect-flash
+const flash = require("connect-flash")
+
+//載入訊息處理 middleware
+const message = require("./middlewares/message-handler")
+const errMessage = require("./middlewares/error-message-handler")
+
 //載入 routes
 const router = require("./routes/index") 
 
@@ -28,8 +38,23 @@ app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(correlator())
+
+
+// session 設定
+app.use(session({
+    secret: "ThisisSecret",
+    resave: false,
+    saveUninitialized: false
+}))
+
+
+app.use(flash())
+
+app.use(message)
+
 app.use(router)
 
+app.use(errMessage)
 
 
 //express.listening

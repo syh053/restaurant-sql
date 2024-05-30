@@ -25,17 +25,26 @@ router.get('/', (req, res) => {
         }, raw: true
     } : { raw: true }
     Restaurant.findAll(option)
-        .then(restaurants => res.render("restaurants", { restaurants, keyword }))
-        .catch(err => {
-            console.log(`ID for this request is: ${req.correlationId()}, message: ${err.message}`)
-            res.status(500).json({ message: 'Unhandled error', requestId: 'randomId_1xxxxx' })
+        .then(restaurants => {
+            res.render("restaurants", {
+            restaurants,
+            keyword,
+            error: req.flash("error")
+            })
+        })
+        .catch( err => {
+            err.statuscode = 500
+            err.errMessage = "無法取得 restaurants 清單"
+            next(err)
         })
 
 })
 
 
 router.get('/new', (req, res) => {
-    res.render('new')
+   
+    res.render('new', {  error: req.flash('error') })
+    
 })
 
 
@@ -45,10 +54,21 @@ router.get('/:id', (req, res) => {
         where: { id: id },
         raw: true
     })
-        .then(restaurant => res.render("detail", { restaurant }))
-        .catch(err => {
-            console.log(`ID for this request is: ${req.correlationId()}, message: ${err.message}`)
-            res.status(500).json({ message: 'Unhandled error', requestId: 'randomId_1xxxxx' })
+        .then( restaurant => {
+
+            if ( !restaurant ) {
+                req.flash("error", "超出 ID 範圍!!!")
+                const error = new Error("找不到這個 id !!!")
+                res.status(500).redirect("/restaurants")
+            } else {
+                res.render("detail", { restaurant })
+            }
+            
+        } )
+        .catch( err => {
+            err.statuscode = 404
+            err.errMessage = "無法取得餐廳內容"
+            next(err)
         })
 })
 
@@ -59,18 +79,28 @@ router.get('/:id/edit', (req, res) => {
         where: { id: id },
         raw: true
     })
-        .then(restaurant => res.render("edit", { restaurant }))
-        .catch(err => {
-            console.log(`ID for this request is: ${req.correlationId()}, message: ${err.message}`)
-            res.status(500).json({ message: 'Unhandled error', requestId: 'randomId_1xxxxx' })
+        .then(restaurant => {
+
+            if (!restaurant) {
+                req.flash("error", "超出編輯 ID 範圍!!!")
+                const error = new Error("找不到這個編輯 id !!!")
+                res.status(500).redirect("/restaurants")
+            } else {
+                res.render("edit", { restaurant, error: req.flash("error") })
+            }
+               
+        } )
+        .catch( err => {
+            err.statuscode = 404
+            err.errMessage = "無法取得編輯資料!!"
+            next(err)
         })
 })
 
 
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
     const body = req.body
-    console.log(body.name)
-    console.log(body.category)
+
     Restaurant.create({
         name: body.name,
         name_en: body.en_name,
@@ -82,10 +112,14 @@ router.post("/", (req, res) => {
         rating: body.rating,
         description: body.description
     })
-        .then(() => res.redirect("/restaurants"))
-        .catch(err => {
-            console.log(`ID for this request is: ${req.correlationId()}, message: ${err.message}`)
-            res.status(500).json({ message: 'Unhandled error', requestId: 'randomId_1xxxxx' })
+        .then(() => {
+            req.flash("success", "建立成功!!!")
+            res.redirect("/restaurants")
+        } )
+        .catch( err => {
+            err.statuscode = 404
+            err.errMessage = "建立失敗"
+            next(err)
         })
 
 })
@@ -109,10 +143,14 @@ router.put("/:id", (req, res) => {
 
         { where: { id: id } },
     )
-        .then(() => res.redirect(`/restaurants/${id}`))
-        .catch(err => {
-            console.log(`ID for this request is: ${req.correlationId()}, message: ${err.message}`)
-            res.status(500).json({ message: 'Unhandled error', requestId: 'randomId_1xxxxx' })
+        .then(() => {
+            req.flash("success", "資料修改成功!!")
+            res.redirect(`/restaurants/${id}`)
+        } )
+        .catch( err => {
+            err.statuscode = 404
+            err.errMessage = "編輯失敗!!"
+            next(err)
         })
 })
 
@@ -122,10 +160,14 @@ router.delete("/:id", (req, res) => {
     Restaurant.destroy({
         where: { id: id }
     })
-        .then(() => res.redirect("/restaurants"))
-        .catch(err => {
-            console.log(`ID for this request is: ${req.correlationId()}, message: ${err.message}`)
-            res.status(500).json({ message: 'Unhandled error', requestId: 'randomId_1xxxxx' })
+        .then(() => {
+            req.flash("success", "資料刪除成功!!")
+            res.redirect("/restaurants")
+        } )
+        .catch( err => {
+            err.statuscode = 404
+            err.errMessage = "刪除失敗!!"
+            next(err)
         })
 })
 
