@@ -1,5 +1,5 @@
-<!-- search bar -->
 <div class="container search-bar">
+    <!-- search bar -->
     <div class="search-bar-outer">
         <div class="search-bar-inner">
             <form action="/restaurants">
@@ -7,7 +7,7 @@
                     <h4 class="mb-2 my-2" style="display: inline;">尋找餐廳：</h4>
                     <a href="/restaurants/new" class="creat-button btn btn-primary mb-2">Create</a>
                 </div>
-                <div class="input-group" >
+                <div class="input-group">
                     <input type="text" name="keyword" value="{{keyword}}" class="form-control" placeholder="輸入餐廳、分類"
                         aria-label="Restaurant Name..." value="" aria-describedby="search-button">
                     <div class="input-group-append">
@@ -18,6 +18,22 @@
             </form>
         </div>
     </div>
+    <!-- search bar -->
+
+    {{!-- 分類器 --}}
+    <div class="form-group mb-4">
+        <form class="sortForm" action="/restaurants" method="get">
+            <select name="sortArrangement" id="sortArrangement" onchange="document.querySelector('.sortForm').submit()">
+                <option value="ASC" {{#if (sort sortValue "ASC")}} selected {{/if}}>A -> Z</option>
+                <option value="DESC" {{#if (sort sortValue "DESC")}} selected {{/if}}>Z -> A</option>
+                <option value="category" {{#if (sort sortValue "category")}} selected {{/if}}>類別</option>
+                <option value="location" {{#if (sort sortValue "location")}} selected {{/if}}>地區</option>
+            </select>
+            <noscript><input type="submit" value="Submit"></noscript>
+        </form>
+        
+    </div>
+    {{!-- 分類器 --}}
 </div>
 
 
@@ -41,17 +57,17 @@
 
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="card-title mb-1">{{restaurant.name}}</span>
-                                    
+
                                     <span class="badge rounded-pill bg-danger font-weight-normal">
                                         {{restaurant.rating}}
                                         <i class="fas fa-star fa-xs"></i>
                                     </span>
                                 </div>
-                                
+
 
                                 <div class="restaurant-category mb-1">
                                     <i class="fas fa-utensils pr-2"></i> {{restaurant.category}}
-                                </div>                               
+                                </div>
 
                             </div>
                         </a>
@@ -65,12 +81,50 @@
                             </form>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 {{/each}}
-                
+
             </div>
         </div>
     </div>
 </div>
+<!-- restaurant list -->
+
+
+{{!-- 分頁器 --}}
+<div class="pagination my-3">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+
+            <li class="page-item">
+                <a class="page-link border border-0" href="/restaurants?keyword={{keyword}}&page={{previousStep}}"><i class="fa-solid fa-backward-step"></i></a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link border border-0" href="/restaurants?keyword={{keyword}}&page={{previous}}"><i class="fa-solid fa-caret-left"></i></a>
+            </li>
+
+            <li class="page-item-input mx-3">
+                <form action="/restaurants" method="get">
+                    <input type="text" class="inputPage" name="page" value="{{currentPage}}">
+                    <span>of {{totalPage}}</span>
+                </form>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link border border-0" href="/restaurants?keyword={{keyword}}&page={{next}}"><i class="fa-solid fa-caret-right"></i></a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link border border-0" href="/restaurants?keyword={{keyword}}&page={{nextStep}}"><i class="fa-solid fa-forward-step"></i></a>
+            </li>
+
+        </ul>
+    </nav>
+</div>
+{{!-- 分頁器 --}}
+
+
+<script src="/css/index.css"></script>

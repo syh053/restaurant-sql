@@ -32,6 +32,14 @@ app.set("view engine", ".hbs")
 app.set("views", "./views")
 
 
+// 載入 handlebars 並設定自定義判斷條件
+const handlebars = require("handlebars")
+
+handlebars.registerHelper('sort', (arg1, arg2) => {
+    return arg1 === arg2
+})
+
+
 
 //對所有的 request 進行前置處理
 app.use(express.static("public"))

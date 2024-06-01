@@ -21,8 +21,10 @@ header {
 }
 
 .search-bar .search-bar-outer {
-    margin: 0 auto;
+    right: 5vw;
+    /* margin: 0 auto; */
     max-width: 680px;
+    min-width: 30vw;
     background-color: #fce2cf;
     border-radius: 8px;
     padding: 20px 30px;
@@ -112,4 +114,35 @@ header {
 .edit-btn {
     position: relative;
     left: -235px;
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.page-item-input {
+    display: flex;
+    align-items: center;
+}
+
+.inputPage {
+    width: 3em;
+}
+
+.form-group {
+    text-align: right;
+    position: relative;
+    top: 4.5vh;
+}
+
+#sortArrangement{
+    width: 10em;
+}
+
+
+.search-bar {
+    display: flex;
+    justify-content:space-around;
 }

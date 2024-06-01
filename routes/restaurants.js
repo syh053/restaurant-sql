@@ -7,11 +7,39 @@ const Restaurant = db.Restaurant
 
 
 //建立路由路徑
-router.get('/', (req, res) => {
-    const keyword = req.query.keyword?.trim()
+router.get('/', (req, res, next) => {
+        
+    // 分類處理
+    const sortValue = req.query.sortArrangement || "ASC"
+    let sortOption = []
 
-    /* 搜尋 name, name_en, category, phone, description 是否符合關鍵字
-    下面透過三元運算子定義 option 的值 */
+    switch (sortValue) {
+        case "ASC" :
+            sortOption = [["name", "ASC"]]
+            break
+
+        case "DESC" :
+            sortOption = [["name", "DESC"]]
+            break
+
+        case "category":
+            sortOption = [["category", "DESC"]]
+            break
+        
+        case "location":
+            sortOption = [["location", "DESC"]]
+            break
+
+        default :
+            ortOption = [["name", "ASC"]]
+            break
+    }
+    
+
+    // 搜尋關鍵字、分頁器處理
+    const keyword = req.query.keyword?.trim()
+    const page = parseInt(req.query.page) || 1
+    const limit = 9
 
     const option = keyword ? {
         where: {
@@ -22,13 +50,32 @@ router.get('/', (req, res) => {
                 { phone: { [Op.like]: `%${keyword}%` } },
                 { description: { [Op.like]: `%${keyword}%` } }
             ]
-        }, raw: true
-    } : { raw: true }
-    Restaurant.findAll(option)
-        .then(restaurants => {
+        },
+        order: sortOption,
+        offset: (page - 1) * limit,
+        limit: limit,
+        raw: true
+    } : {
+        order: sortOption,
+        offset: (page - 1) * limit,
+        limit: limit,
+        raw: true 
+    }
+
+    Restaurant.findAndCountAll(option)
+        .then( ( { count, rows } ) => {
+            const totalPage = Math.ceil(count / 9)
+
             res.render("restaurants", {
-            restaurants,
+            restaurants: rows,
             keyword,
+            currentPage: page,
+            totalPage,
+            previous: page - 1 >= 1 ? page - 1 : 1,
+            previousStep: page - 5 >= 1 ? page - 5 : 1,
+            next: page + 1 <= totalPage ? page + 1 : totalPage, 
+            nextStep: page + 5 <= totalPage ? page + 5 : totalPage, 
+            sortValue,
             error: req.flash("error")
             })
         })
@@ -171,4 +218,4 @@ router.delete("/:id", (req, res) => {
         })
 })
 
-module.exports = router
+module.exports = router 
