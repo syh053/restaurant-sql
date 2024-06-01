@@ -3,6 +3,12 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+// 環境變數 NODE_ENV 為 "development" 時，設定 SESSION_SECRET 
+if (process.env.NODE_ENV === "development") {
+    // 套用 dotenv 套件
+    require("dotenv").config()
+}
+
 //載入 express-session
 const session = require("express-session")
 
@@ -50,7 +56,7 @@ app.use(correlator())
 
 // session 設定
 app.use(session({
-    secret: "ThisisSecret",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
 }))
