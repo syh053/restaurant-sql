@@ -95,7 +95,7 @@ router.get('/new', (req, res) => {
 })
 
 
-router.get('/:id', (req, res) => {
+router.get('/:id', (req, res, next) => {
     const id = req.params.id
     Restaurant.findOne({
         where: { id: id },
@@ -105,8 +105,9 @@ router.get('/:id', (req, res) => {
 
             if ( !restaurant ) {
                 req.flash("error", "超出 ID 範圍!!!")
-                const error = new Error("找不到這個 id !!!")
-                res.status(500).redirect("/restaurants")
+                const err = new Error("找不到這個 id !!!")
+                err.statuscode = 404
+                next(err)
             } else {
                 res.render("detail", { restaurant })
             }
@@ -120,7 +121,7 @@ router.get('/:id', (req, res) => {
 })
 
 
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', (req, res, next) => {
     const id = req.params.id
     Restaurant.findOne({
         where: { id: id },
@@ -128,10 +129,11 @@ router.get('/:id/edit', (req, res) => {
     })
         .then(restaurant => {
 
-            if (!restaurant) {
+            if ( !restaurant ) {
                 req.flash("error", "超出編輯 ID 範圍!!!")
-                const error = new Error("找不到這個編輯 id !!!")
-                res.status(500).redirect("/restaurants")
+                const err = new Error("找不到這個 id 進行編輯!!!")
+                err.statuscode = 404
+                next(err)
             } else {
                 res.render("edit", { restaurant, error: req.flash("error") })
             }
