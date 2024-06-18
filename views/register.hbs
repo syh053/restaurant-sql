@@ -1,0 +1,73 @@
+<div class="mt-3">
+    {{> message}}
+</div>
+
+
+<div class="card login-page">
+
+    <div class="card-header">
+        REGISTER
+    </div>
+
+    <div class="card-body">
+        <form id="login-submit" action="/registers" method="post">
+
+            {{!-- Name --}}
+            <div class="d-flex align-items-center row row-cols-2">
+                <div class="col-3">
+                    <label for="Name" class="form-label">Name(選填) :</label>
+                </div>
+                <div class="col-9">
+                    <input type="text" name="Name" class="form-control" id="Name">
+                </div>
+            </div>
+
+            {{!-- Email --}}
+            <div class="d-flex align-items-center row row-cols-2 mt-3">
+                <div class="col-3">
+                    <label for="Email" class="form-label">Email :</label>
+                </div>
+                <div class="col-9">
+                    <input type="email" name="Email" class="form-control" id="Email">
+                </div>
+            </div>
+
+            {{!-- Password --}}
+            <div class="d-flex align-items-center row row-cols-2 mt-3">
+                <div class="col-3">
+                    <label for="Password" class="form-label">Password :</label>
+                </div>
+                <div class="col-9">
+                    <input type="password" name="Password" class="form-control" id="Password">
+                </div>
+            </div>
+
+            {{!-- Confirm password --}}
+            <div class="d-flex align-items-center row row-cols-2 mt-3">
+                <div class="col-3">
+                    <label for="Confirm-password" class="form-label">Confirm password :</label>
+                </div>
+                <div class="col-9">
+                    <input type="password" name="ConfirmPassword" class="form-control" id="Confirm-password">
+                </div>
+            </div>
+
+            <div id="submit" class="d-flex justify-content-end align-items-center mt-3">
+                <span class="mx-3">Already have account?<a class="ms-1" href="/login">Login</a></span>
+
+                <button id="submit" type="submit" class="btn btn-primary me-3"><i class="fa-regular fa-registered me-2"></i>Register</button>
+
+
+        </form>
+
+                <form id="facebook-submit" action="/auth/facebook" method="get" style="display: inline;">
+                    <button type="submit" class="btn btn-primary"><i class="fa-brands fa-facebook me-2"></i>Facebook
+                        Login</button>
+                </form>
+            </div>
+
+    </div>
+
+</div>
+
+</div>

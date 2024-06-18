@@ -146,3 +146,25 @@ header {
     display: flex;
     justify-content:space-around;
 }
+
+.login-page {
+    margin: 0 auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+.form-label {
+    margin: 0;
+}
+
+.btn {
+    height: 3em;
+}
+
+#facebook-submit {
+    margin: 0;
+}
+
+.card-header {
+    text-align: left;
+}
