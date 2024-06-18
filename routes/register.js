@@ -1,30 +1,48 @@
 const express = require('express')
 const router = express.Router()
 
+const db = require('../db/models')
+const { where } = require('sequelize')
+const User = db.User
+
 router.get('/', (req, res) => {
     res.render('register')
 })
 
 router.post('/', (req, res) => {
     const { Name, Email, Password, ConfirmPassword } = req.body
-    console.log(req.body)
-
-    console.log('Name :', Name)
-    console.log('Email :', Email)
-    console.log('Password :', Password)
-    console.log('ConfirmPassword :', ConfirmPassword)
 
     if (!Email) {
         req.flash('error', '未輸入 email !!')
-        res.redirect('back')
+        return res.redirect('back')
     } else if (!Password) {
-        req.flash('error', '未輸入 password !!')
-        res.redirect('back')
+        req.flash('error', '未輸入密碼!!')
+        return res.redirect('back')
     } else if (Password !== ConfirmPassword) {
         req.flash('error', '密碼輸入不一致!!')
-        res.redirect('back')
+        return res.redirect('back')
     }
-    res.send('建立使用者')
+
+    User.findOne({
+        where: {email : Email}
+    })
+        .then( user => {
+            if (user) {
+                req.flash('error', '此 email 已註冊!!')
+                return res.redirect('back')
+            }
+
+            return User.create({
+                name: Name,
+                email: Email,
+                password: Password
+            })
+        })
+
+        .then( user => {
+            req.flash('success', '註冊成功!!')
+            return res.redirect('login')
+        })
 })
 
 module.exports = router
