@@ -2,11 +2,16 @@ const express = require('express')
 const router = express.Router()
 
 const db = require('../db/models')
-const { Op } = require('sequelize')
+const { Op, where } = require('sequelize')
 const Restaurant = db.Restaurant
 
 // 建立路由路徑
 router.get('/', (req, res, next) => {
+  console.log('是否登入 :', req.isAuthenticated())
+  console.log(req.user)
+  const id = req.user.id
+
+
   // 分類處理
   const sortValue = req.query.sortArrangement || 'ASC'
   let sortOption = []
@@ -47,7 +52,8 @@ router.get('/', (req, res, next) => {
             { category: { [Op.like]: `%${keyword}%` } },
             { phone: { [Op.like]: `%${keyword}%` } },
             { description: { [Op.like]: `%${keyword}%` } }
-          ]
+          ],
+          userID: { id }
         },
         order: sortOption,
         offset: (page - 1) * limit,
@@ -55,6 +61,7 @@ router.get('/', (req, res, next) => {
         raw: true
       }
     : {
+        where: { userID: id },
         order: sortOption,
         offset: (page - 1) * limit,
         limit,

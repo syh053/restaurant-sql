@@ -4,8 +4,9 @@ const router = express.Router()
 const restaurants = require('./restaurants')
 const register = require('./register')
 const login = require('./login')
+const auth_handler = require('../middlewares/auth-handler')
 
-router.use('/restaurants', restaurants)
+router.use('/restaurants', auth_handler,  restaurants)
 router.use('/registers', register)
 router.use('/login', login)
 
@@ -15,8 +16,14 @@ router.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-router.post('/logout', (req, res) => {
-  res.send('登出')
+router.post('/logout', (req, res, next) => {
+  req.logout( err => {
+    if (err) {
+      next(err)
+    }
+
+    res.redirect('login')
+  })
 })
 
 module.exports = router

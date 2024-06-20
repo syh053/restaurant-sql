@@ -28,6 +28,9 @@ const methodOverride = require('method-override')
 // 載入 express-correlation-id 套件
 const correlator = require('express-correlation-id')
 
+//載入 passport 
+const passport = require('passport')
+
 // 設定樣板引擎
 const engine = require('express-handlebars').engine
 app.engine('.hbs', engine({ extname: '.hbs' }))
@@ -55,6 +58,9 @@ app.use(session({
 }))
 
 app.use(flash())
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(message)
 
