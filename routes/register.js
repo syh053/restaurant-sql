@@ -35,19 +35,19 @@ router.post('/', (req, res) => {
                 return res.redirect('back')
             }
 
-            bcrypt.hash(Password, 10)
+            return bcrypt.hash(Password, 10)
                 .then( hash => {
                     return User.create({
                         name: Name,
                         email: Email,
                         password: hash
                     })
-                } ) 
-        })
-
-        .then( user => {
-            req.flash('success', '註冊成功!!')
-            return res.redirect('login')
+                })
+                
+                .then(user => {
+                    req.flash('success', '註冊成功!!')
+                    return res.redirect('login')
+                })
         })
 })
 

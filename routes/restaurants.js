@@ -145,6 +145,7 @@ router.get('/:id/edit', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const body = req.body
+  const id = req.user.id
 
   Restaurant.create({
     name: body.name,
@@ -155,7 +156,8 @@ router.post('/', (req, res, next) => {
     phone: body.phone,
     google_map: body.google_address,
     rating: body.rating,
-    description: body.description
+    description: body.description,
+    userID: id
   })
     .then(() => {
       req.flash('success', '建立成功!!!')
