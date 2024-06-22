@@ -7,6 +7,7 @@ const Restaurant = db.Restaurant
 
 // 建立路由路徑
 router.get('/', (req, res, next) => {
+  console.log('session :', req.session)
   console.log('是否登入 :', req.isAuthenticated())
   console.log(req.user)
   const id = req.user.id

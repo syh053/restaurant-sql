@@ -5,6 +5,9 @@ const db = require('../db/models')
 const { where } = require('sequelize')
 const User = db.User
 
+// 載入雜湊套件
+const bcrypt = require('bcryptjs')
+
 router.get('/', (req, res) => {
     res.render('register')
 })
@@ -32,11 +35,14 @@ router.post('/', (req, res) => {
                 return res.redirect('back')
             }
 
-            return User.create({
-                name: Name,
-                email: Email,
-                password: Password
-            })
+            bcrypt.hash(Password, 10)
+                .then( hash => {
+                    return User.create({
+                        name: Name,
+                        email: Email,
+                        password: hash
+                    })
+                } ) 
         })
 
         .then( user => {
