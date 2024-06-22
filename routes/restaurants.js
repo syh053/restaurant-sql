@@ -54,7 +54,7 @@ router.get('/', (req, res, next) => {
             { phone: { [Op.like]: `%${keyword}%` } },
             { description: { [Op.like]: `%${keyword}%` } }
           ],
-          userID: { id }
+          userID: id 
         },
         order: sortOption,
         offset: (page - 1) * limit,
