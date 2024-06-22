@@ -6,16 +6,14 @@ const datas = require('../json/restaurant.json').results
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-
+  async up (queryInterface, Sequelize) {
     // 使用 transaction，必須要全部執行完成，否則寧願都不要執行;全部執行完 commit，取消執行 rollback
     const t = await queryInterface.sequelize.transaction()
 
     const hash = bcrypt.hashSync('12345678', 10)
 
-    try {     
-
-      await queryInterface.bulkInsert('Users', Array.from({ length: 2 }, ( v, i ) =>
+    try {
+      await queryInterface.bulkInsert('Users', Array.from({ length: 2 }, (v, i) =>
         ({
           id: i + 1,
           email: `user${i + 1}@example.com`,
@@ -25,9 +23,8 @@ module.exports = {
         })
       ), { transaction: t })
 
-      //將 restaurant 資料處理成 list
+      // 將 restaurant 資料處理成 list
       const newDatas = datas.map(data => {
-
         // restaurant 的 id 為 1、2、3 的話屬於 user1
         if (data.id <= 3) {
           data.userID = 1
@@ -59,16 +56,12 @@ module.exports = {
       await queryInterface.bulkInsert('restaurants', newDatas, { transaction: t })
 
       await t.commit()
-
     } catch (error) {
-
       await t.rollback()
-
     }
-
   },
 
-  async down(queryInterface, Sequelize) {
+  async down (queryInterface, Sequelize) {
     await queryInterface.bulkDelete('users', null)
     await queryInterface.bulkDelete('restaurants', null)
   }

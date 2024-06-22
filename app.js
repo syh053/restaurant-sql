@@ -28,7 +28,7 @@ const methodOverride = require('method-override')
 // 載入 express-correlation-id 套件
 const correlator = require('express-correlation-id')
 
-//載入 passport 
+// 載入 passport
 const passport = require('passport')
 
 // 設定樣板引擎

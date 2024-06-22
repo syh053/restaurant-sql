@@ -4,12 +4,11 @@ const router = express.Router()
 const restaurants = require('./restaurants')
 const register = require('./register')
 const login = require('./login')
-const auth_handler = require('../middlewares/auth-handler')
+const authHandler = require('../middlewares/auth-handler')
 
-router.use('/restaurants', auth_handler,  restaurants)
+router.use('/restaurants', authHandler, restaurants)
 router.use('/registers', register)
 router.use('/login', login)
-
 
 // 建立路由路徑
 router.get('/', (req, res) => {
@@ -17,7 +16,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/logout', (req, res, next) => {
-  req.logout( err => {
+  req.logout(err => {
     if (err) {
       next(err)
     }
