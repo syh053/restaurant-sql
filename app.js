@@ -70,5 +70,5 @@ app.use(errMessage)
 
 // express.listening
 app.listen(port, () => {
-  console.log(`express server running on http://localhost:${port}`)
+  console.log(`express server running on http://localhost:${port}/login`)
 })

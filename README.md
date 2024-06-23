@@ -57,11 +57,28 @@ ___
 npm install -g nodemon
 ```
 
-4. (更新) 依據 .env 檔案設定環境境變數，.env.example 說明了需要設定哪些環境變數
+___
+
+
+4. 依據 .env 檔案設定環境境變數，.env.example 說明了需要設定哪些環境變數
+
+   需透過 [Facebook for developers](https://developers.facebook.com/) 設置相關設定
 
 ___
 
-5. 啟動方式
+5. 建立 table 及種子資料
+
+```
+npm run table
+```
+
+```
+npm run seed
+```
+
+___
+
+6. 啟動監聽器，餐廳清單入口 : http://localhost:3000/login
 
  ```
 npm run dev
