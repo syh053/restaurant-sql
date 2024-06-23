@@ -66,7 +66,11 @@ ___
 
 ___
 
-5. 建立 table 及種子資料
+5. 在 MySQL 中建立 restaurant 資料庫
+
+___
+
+6. 建立 table 及種子資料
 
 ```
 npm run table
@@ -78,7 +82,7 @@ npm run seed
 
 ___
 
-6. 啟動監聽器，餐廳清單入口 : http://localhost:3000/login
+7. 啟動監聽器，餐廳清單入口 : http://localhost:3000/login
 
  ```
 npm run dev
