@@ -5,15 +5,15 @@
 
 (新增) 使用者登入頁
 
-![image](https://imgur.com/HHLBjSF)
+![image](https://imgur.com/HHLBjSF.jpg)
 
 (新增) 使用者註冊頁
 
-![image](https://imgur.com/1DBBsQw)
+![image](https://imgur.com/1DBBsQw.jpg)
 
 登入後頁面
 
-![image](https://imgur.com/pQsxOIE)
+![image](https://imgur.com/pQsxOIE.jpg)
 
 查看單一餐廳
 
