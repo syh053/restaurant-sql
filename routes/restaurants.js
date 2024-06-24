@@ -3,7 +3,7 @@ const router = express.Router()
 
 const db = require('../db/models')
 const { Op } = require('sequelize')
-const Restaurant = db.Restaurant
+const Restaurant = db.restaurant
 
 // 建立路由路徑
 router.get('/', (req, res, next) => {
